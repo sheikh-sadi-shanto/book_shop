@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div style="display: block; margin: auto;background-color: beige;" class="mt-0 pt-2  border  border-1  border-black  ">
+        
+        <div style="width: fit-content ;margin: auto;background-color: rgb(173, 215, 215);" class="p-2 rounded-3 text-center fw-bold p-2">Book Name : {{specific.name}} </div>
+
+
+        <div class="row bg-light m-auto " id="llk">
+            <div class="col"  style="background-color: beige;">
+                <p class="text-center fw-bold fs-5 m-auto">chapter</p>
+                <hr>
+                <form class="text-center" action="" method="POST">
+                    {% csrf_token %}
+                <label for="chapter">Create chapter :</label>
+                <input class="form-control" type="text" name="chapte" id="chapter">
+                <input  type="submit" value="Create">
+                </form>
+                <hr>
+                {% for c in chap %}
+                <div  class="text-center rounded-1 border border-1 border-black mb-1 p-2">
+                    <div class="col">{{c.chapter_name}}</div>
+                    
+                    
+                </div>
+                <div class="text-center">
+                <a href="{% url 'edit_chapter' c.id %}" type="button" class="btn-danger btn col-2 bg-danger m-1">edit</a>
+                </div>
+                {% endfor %}
+                
+            </div>   
+        </div>
+
+
+
+
+
+        <hr class="new5">
+
+        <div class="text-center text-bg-danger p-2">
+          {% if specific.book_img %}
+          <div class="m-2"><img class="bg-dark rounded-1 shadow" width="250" src="{{specific.book_img.url}}" alt=""></div>
+          {% endif %}
+
+          <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %} 
+          <div class="m-auto text-center mt-2">
+              <label class="imginput" for="img">Change book cover
+                  <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" >
+                  <path d="M12 10V16M12 10L10 12M12 10L14 12M12.0627 6.06274L11.9373 5.93726C11.5914 5.59135 11.4184 5.4184 11.2166 5.29472C11.0376 5.18506 10.8425 5.10425 10.6385 5.05526C10.4083 5 10.1637 5 9.67452 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V15.8C3 16.9201 3 17.4802 3.21799 17.908C3.40973 18.2843 3.71569 18.5903 4.09202 18.782C4.51984 19 5.07989 19 6.2 19H17.8C18.9201 19 19.4802 19 19.908 18.782C20.2843 18.5903 20.5903 18.2843 20.782 17.908C21 17.4802 21 16.9201 21 15.8V10.2C21 9.0799 21 8.51984 20.782 8.09202C20.5903 7.71569 20.2843 7.40973 19.908 7.21799C19.4802 7 18.9201 7 17.8 7H14.3255C13.8363 7 13.5917 7 13.3615 6.94474C13.1575 6.89575 12.9624 6.81494 12.7834 6.70528C12.5816 6.5816 12.4086 6.40865 12.0627 6.06274Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <input id="img" type='file' name="book_img">
+              </label>
+          </div>
+          <label for="name">Name :</label>
+          <input style="width: 20%;margin: auto;" class="form-control" type="text" id="name" name="name" value="{{specific.name}}">
+          <br>
+          <label for="description">Description :</label>
+          <textarea style="width: 20%;margin: auto;" class="form-control"  id="description" name="description">{{specific.description}}</textarea>
+      
+          <br>
+          <label for="price">Price :</label>
+          <input style="width: 20%;margin: auto;" class="form-control" type="number" id="price" name="price" value="{{specific.price}}">
+          <br>
+          <label for="offer">Offer :</label>
+          <input style="width: 20%;margin: auto;" class="form-control" type="number" id="offer" name="offer" value="{{specific.offer}}">
+          <br>
+          <label for="offerdescription">Offer Description :</label>
+          <textarea style="width: 20%;margin: auto;" class="form-control"  id="offerdescription" name="offerdescription">{{specific.offer_detail}}</textarea>
+      
+          <div class="m-auto text-center mt-2"><input type="submit" class="btn btn-dark" value="submit"></div>
+          <br>
+          </form>
+
+          <!-- Button trigger modal -->
+<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Delete Book
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-opacity-50 bg-danger">
+        <h5 class="modal-title text-black fw-bold" id="staticBackdropLabel">Delete Box</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-dark bg-danger fw-bold">
+          Warning  <br> One click to delete your book 
+      </div>
+      <div class="modal-footer bg-opacity-50 bg-danger">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form class="text-center" action="{% url 'delete_book' specific.id %}" method="POST_DELETE">{% csrf_token %}<input type="submit" class="btn btn-danger" value="delete">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+          
+         </div>
+        
+        
+    </div>
+{% endblock %}

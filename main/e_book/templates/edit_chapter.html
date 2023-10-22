@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ckeditor/ckeditor.css' %}">
+
+    <div style="display: block; margin: auto;background-color: beige;" class="mt-0 pt-2  border  border-1  border-black  ">
+        
+        <div style="width: fit-content ;margin: auto;" class="p-2 rounded-3 bg-white text-center fw-bold p-2">Book Name : {{cha.chapter_book.name}}</div>
+        
+        <div class=" text-bg-danger p-2">
+            <button type="button" class="btn btn-secondary btn-sm"> <a href="{% url 'back' cha.id %}"> Back </a></button>
+
+        </div>
+        <div class="row bg-primary">
+            <div class="col-4 col-lg-3">
+                <p class="text-center fw-bold fs-5 m-auto">chapter</p>
+                
+                <hr>
+                <form class="text-center border border-1 border-black row m-1" action="" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="ch" class="col" value="{{cha.chapter_name}}"> <br>
+                    <input type="submit" class="coL-2 w-25 m-auto btn btn-danger" value="submit">
+                </form>
+
+
+                <div class="text-center">
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Delete Chapter
+                  </button>
+                </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header bg-opacity-50 bg-danger">
+                          <h5 class="modal-title text-black fw-bold" id="staticBackdropLabel">Delete Box</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-dark bg-danger fw-bold text-center">
+                            Warning  <br> One click to delete your chapter 
+                        </div>
+                        <div class="modal-footer bg-opacity-50 bg-danger">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <form class="text-center" action="{% url 'delete_chapter' cha.id %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-danger" value="delete">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+                
+                
+            </div>
+        
+            <div class="col bg-dark text-white">
+                <h3 class="text-white text-center mt-1">book title</h3>
+                <hr>
+                
+                <div>
+                    <div class="text-white text-center m-1">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                        {{form}}
+                        <input class="btn btn-primary m-2 text-center" type="submit" value="submit">
+                        </form>
+                    </div>
+                   
+                   
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace('id_content');
+    </script>
+
+<script>
+    function goBack() {
+      window.history.back()
+    }
+    </script>
+{% endblock %}

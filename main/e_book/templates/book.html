@@ -1,0 +1,59 @@
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book</title>
+    <style>
+        .col{padding-top: 7px;background-color: rgb(236, 223, 223);border: 0.1em solid black;font-size: 12px;}
+        .col2{padding-top: 7px;font-size: 12px;}
+        
+        span{border: 1px solid red;}
+        table, th, td {
+            font-size: 12px;
+  border-bottom: 1px solid black;
+  border-collapse: collapse;
+}
+    </style>
+	
+</head>
+<body >
+
+<div >
+    <div>
+        <h1 style="text-align: center;font-size:20px;">{{book.name}}</h1>
+        <hr style="height:4px;border-width:0;color:gray;background-color:gray">
+        <br>
+        <br>
+        <br>
+      
+        <table style="width: 100%;">
+            <colgroup>
+              <col span="2" style="background-color: #D6EEEE">
+            </colgroup>
+            {% for i in all_chapter %} 
+            <tr>
+            <th colspan="6">{{i.chapter_name}}</th>
+            <th style="padding-top: 5px;">chapter - {{ forloop.counter }}</th>
+            </tr>
+            {% endfor %}
+
+            </table>
+        
+    </div>
+    
+</div >
+
+        <br>
+        <br>
+        <div  class="col2" >
+            {% for ii in all_chapter %}
+            <div style="margin-left: auto;" id="{{ forloop.counter }}">{{ii.detail.content|safe}} </div>
+            {% endfor %}
+        </div>
+        
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+
+
+
+ <!--Banner Slider-->
+
+
+<div class="container text-center m-auto">
+   
+  <div id="carouselExampleControls" class="carousel slide w-50 m-auto" data-bs-ride="carousel">
+    <div style="height: 400px;margin-top: 0;" class="carousel-inner m-auto">
+
+      {% for i in all_book %}
+          <div class=" carousel-item {% if forloop.first %}active{% endif %}">
+            <img style="box-shadow: 2px 2px 8px black ;"  src="{{i.book_img.url}}" class="d-block w-100 " alt="..."> 
+          </div>
+          {% endfor %}
+
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+    
+</div>
+<!-- End Banner Slider -->
+<hr>
+
+
+<section class="section-products">
+  <div class="container">
+      <div class="row justify-content-center text-center">
+          <div class="col-md-8 col-lg-6">
+              <div class="header">
+                  <h1>Featured Product</h1>
+                  <h3>Popular Products</h3>
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <!-- Single Product -->
+          {% for a in all_book %}
+          
+          <div class="col-md-6 col-lg-4 col-xl-3 shadow pt-2">
+            
+              <div id="{{a.id}}" class="single-product">
+                
+                  <div style="background-image: url('{{a.book_img.url}}') ;background-repeat:no-repeat ;background-size: cover;" class="part-1">
+                  
+                    <span >{% if a.offer %} <span class="discount rounded-2">{{a.offer}}% off{% else %}</span>  {% endif %}</span>
+                      <ul>
+                          <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                          
+                          <li><a href="{% url 'detail_page' a.id %}"> <small class="fw-bold">show</small> </a></li>
+                          
+                          
+                      </ul>
+                </div>
+                  <div class="part-2">
+                      <h3 class="product-title">{{a.name}}</h3>
+                      {% if a.offer >= 1 %}
+                      <h4 class="product-old-price">$ {{a.price}}</h4>
+                      {% endif %}
+                      <h4 class="product-price">{% if a.offer >= 1 %}$ {{a.offer_price}} {% elif a.price >= 1 %} {{a.price}} {% endif %}</h4>
+                  </div>
+             
+              </div>
+            
+          </div>
+        
+          {% endfor %}
+      </div>
+          
+    </div>
+  
+</section>
+{{a.name}}
+
+
+<footer>
+    <p>&copy; 2023 Writer's Choice- Parabola HTP</p>
+</footer>
+
+
+</body>
+{% endblock %}

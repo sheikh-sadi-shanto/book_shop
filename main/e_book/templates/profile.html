@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div style="background-color: beige;" >
+
+    <div  class="pro m-auto mt-3 shadow rounded-top-4 "  style="background-color: beige;">
+
+        <div class="m-auto text-center mt-2">
+            <img class="bg-white border border-3 border-dark img" height="100" width="100" src="{{profile_detail.pro_pic.url}}" alt="">
+            <br> <br>
+            
+            <div>Name : {{profile_detail.name}}</div>
+            <div>Address : {{profile_detail.addess}}</div>
+
+            
+        </div>
+        <div class="text-end">
+            <a href="{% url 'profile_edit' %}"  type="button" class="btn btn-danger m-2">edit</a>
+        </div>
+    
+    </div>
+
+    <div style="display: block; margin: auto;background-color: beige;" class="mt-0 border  border-1 border-top border-dark rounded-top-4 ">
+        <p></p>
+        <div style="width: fit-content ;margin: auto;background-color: rgb(173, 215, 215);" class="rounded-3  text-center fw-bold p-2"> My Book Collection </div>
+        <hr>
+        <div class="m-auto w-50 bg-danger rounded-1">
+            <form class="m-auto text-center fw-bold" action="" method="POST">
+                {% csrf_token %}
+                <h3 class="text-center">Book</h3>
+                <label for="">Name :</label>
+                <input class="m-auto" type="text" name="name" placeholder=" your book name" >
+                <input class="m-auto" type="submit" value="Create">
+                <hr>
+            </form>
+        </div>
+        {% block edit_book %}
+        
+
+
+        <div  class="row m-auto text-center ">
+            {% for book in all_book reversed %}
+            
+            <div class="m-auto text-center me-3 ms-3 col mb-4 ">
+                <div class="card m-auto text-center" style="width: 18em;">
+                    {% if book.book_img %}
+                    <img height="300px" src="{{book.book_img.url}}" class="card-img-top" alt="">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5>{{book.name}}</h5>
+                        {% if forloop.last %}
+                        {{ forloop.counter }}
+                        {% endif %}
+                        <p></p>
+                        
+                    </div>
+                    <a href="{% url 'bookpdf' book.id %}" class="text-white bg-danger" target="_blank">bookpdf</a>
+                    <a href="{% url 'edit_book' book.id %}" class="text-white bg-dark">edit</a>
+                </div>          
+            </div>  {% endfor %}
+            
+        </div> 
+        {% endblock %}
+        
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+{{a}}
+{% for i in a %}
+{{i}} <p class="white">ok</p>
+{% endfor %}
+
+
+
+
+</div>    
+
+	<script>
+    const a=document.getElementById('id_addess');
+    a.rows=5;
+    
+    </script>
+    {% endblock %}

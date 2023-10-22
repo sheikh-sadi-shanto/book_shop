@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block body %}
+			
+     <div class="container justify-content-center">
+      <div class="row my-3">
+       <div class="col-sm-6 offset-sm-3 text-center">
+        <h3 class="text-danger">Login</h3>
+        <hr>
+        <form action="" method="POST"  class="shadow p-5">
+              {% csrf_token %}
+         <div>
+          {% if messages %}
+    {% for ii in messages %}
+            <p  class="w-75 text-danger m-auto" > {{ii}}</p>
+            {% endfor %}
+        
+         {% endif %}
+  
+         </div>
+        
+       <div class="mb-3 justify-content-center text-start">
+         {% for i in signin_form %}
+         
+         {{i.label_tag}}
+        {{i}}
+
+        <br>
+      
+      
+        {% endfor %}
+        
+        <div class="text-center ">
+         <input type="submit" class="btn btn-primary mt-4" value="Submit">
+         <br><br>
+         <div class="text-center text-primary fw-bold"><small>Already have account ? <a href="{% url 'signup' %}"
+            class="text-danger">Registration</a> </small></div>
+          </div>
+        </form>
+       </div>
+      </div>
+     </div>
+     {% endblock %}
