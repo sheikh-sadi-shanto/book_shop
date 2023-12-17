@@ -18,8 +18,8 @@
                 <p class="text-center fw-bold fs-5 m-auto">chapter</p>
                 
                 <hr>
-                <form class="text-center border border-1 border-black row m-1" action="" method="POST">
-                    {% csrf_token %}
+                <form class="text-center border border-1 border-black row m-1" action="" method="GET">
+                    
                     <input type="text" name="ch" class="col" value="{{cha.chapter_name}}"> <br>
                     <input type="submit" class="coL-2 w-25 m-auto btn btn-danger" value="submit">
                 </form>

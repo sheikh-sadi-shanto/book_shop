@@ -37,4 +37,11 @@ class Order(models.Model):
             total += float(order_item.get_total())
         return total
 
+class BillingAdress(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE,null=True)
+    name=models.CharField(max_length=120)
+    number=models.IntegerField()
+    distric=models.CharField(max_length=120)
+    address=models.TextField()
+    
 

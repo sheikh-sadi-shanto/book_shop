@@ -27,8 +27,8 @@ def book_create(request):
 def edit_book(request,id):
     specific=Ebook.objects.get(user_book=request.user,id=id)
     chap=Book_chapter.objects.filter(chapter_book=specific)
-    if request.method=='POST':
-        chapter_instance=request.POST.get('chapte')
+    if request.method=='GET':
+        chapter_instance=request.GET.get('chapte')
         if chapter_instance!=None and chapter_instance!='':
             chapter=Book_chapter.objects.create(chapter_book=specific,chapter_name=chapter_instance)
             chapter.save()
@@ -94,13 +94,12 @@ def edit_chapter(request,id):
 
     cha=Book_chapter.objects.get(id=id)
     details=Book_details.objects.filter(page_detail=cha)
-    if request.method=='POST':
-        a=request.POST.get('ch')
+    if request.method=='GET':
+        a=request.GET.get('ch')
         if a!=None and a!='':
             cha.chapter_name=a
             cha.save()
-            # previous_page = reverse('edit_book',args=[bookid])
-            # return redirect(previous_page)
+            
     try:
         form=YourForm(instance=details[0])
     except:

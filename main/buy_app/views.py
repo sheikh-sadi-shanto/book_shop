@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from e_book.models import Ebook
 from django.contrib.auth.decorators import login_required
+from .form import Address
 from .models import *
 from django.http import HttpResponse
 from e_book.models import Ebook
@@ -132,12 +133,18 @@ def decrease_cart(request, id):
 
 
 def checkout(request):
-    order=Order.objects.filter(user=request.user,ordered=False)
-    # for i in order:
-    #     print(i.id)
-    order_item = Cart.objects.filter( user=request.user)
-    for i in order_item:
-        print(i.item)
-
-    return render(request,'checkout.html',{'order':order,'order_item':order_item})
+    cart = Cart.objects.filter(user=request.user, purchased=False)
+    # instanc=get_object_or_404(User,)
+    form=Address()
+    if request.method=='POST':
+        form=Address(request.POST)
+        if form.is_valid():
+            form.save()
+    total=float (0)
+    for i in cart:
+        total=total+float(i.get_total())
+    charge=70
+    totals=total+charge
+    print(totals)
+    return render(request,'checkout.html',{'form':form,'item':cart,'totals':totals,'total':total,'charge':charge,})
 

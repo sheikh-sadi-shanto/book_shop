@@ -89,15 +89,10 @@ def passwordchange(request):
 
 def search(request):
     a=''
-    print(search)
-    if request.method=='POST':
-        search=request.POST.get('search')
-        if search==None:
-            a=""
-        else:
-            a=Ebook.objects.filter(Q (name__icontains=search)|Q (price__icontains=search)|Q(description__icontains=search)).distinct()
-        paginator = Paginator(a,1)  # Show 25 contacts per page.
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-        return render(request, 'search.html',{'page_obj':page_obj})
-    return redirect('search')
+    search=request.POST.get('search')
+    a=Ebook.objects.filter(Q (name__icontains=search)|Q (price__icontains=search)|Q(description__icontains=search)).distinct()
+    paginator = Paginator(a,1)  # Show 25 contacts per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'search.html',{'page_obj':page_obj})
+
