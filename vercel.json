@@ -1,0 +1,13 @@
+{
+    "builds": [{
+        "src": "book_shoop/wsgi.py",
+        "use": "@ardnt/vercel-python-wsgi",
+        "config": { "maxLambdaSize": "15mb","python":"3.11.2" }
+    }],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "book_shoop/wsgi.py" 
+        }
+    ]
+}
